@@ -3,36 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <title>الخط الزمني</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Tahoma', sans-serif;
+        direction: rtl;
+        background: #f0f6fa;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 26px;
+        color: #0a4a8a;
+        margin-bottom: 30px;
+    }
+
+    .timeline {
+        max-width: 700px;
+        margin: auto;
+        position: relative;
+    }
+
+    .item {
+        background: white;
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        border-right: 6px solid #0a4a8a;
+    }
+
+    .item-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #0a4a8a;
+    }
+
+    .item-date {
+        color: #555;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    .item-desc {
+        margin-top: 10px;
+        color: #333;
+    }
+</style>
 </head>
 
 <body>
 
-<h2>الخط الزمني لجميع المشاريع</h2>
+<h2>الخط الزمني للمشروع</h2>
 
-<div id="timelineContainer"></div>
+<div class="timeline">
 
-<script src="firebase.js"></script>
+    <div class="item">
+        <div class="item-title">مرحلة التخطيط</div>
+        <div class="item-date">2026-01-10</div>
+        <div class="item-desc">وصف المرحلة هنا.</div>
+    </div>
 
-<script>
-  var container = document.getElementById("timelineContainer");
+    <div class="item">
+        <div class="item-title">مرحلة التنفيذ</div>
+        <div class="item-date">2026-02-15</div>
+        <div class="item-desc">وصف المرحلة هنا.</div>
+    </div>
 
-  firebase.database().ref("timeline").on("value", function(snapshot){
-    container.innerHTML = "";
+    <div class="item">
+        <div class="item-title">مرحلة المتابعة</div>
+        <div class="item-date">2026-03-05</div>
+        <div class="item-desc">وصف المرحلة هنا.</div>
+    </div>
 
-    snapshot.forEach(project => {
-      var projectId = project.key;
-
-      container.innerHTML += `<h3>مشروع: ${projectId}</h3><ul id="list-${projectId}"></ul>`;
-
-      var list = document.getElementById("list-" + projectId);
-
-      project.forEach(update => {
-        var data = update.val();
-        list.innerHTML += `<li>${data.date} — ${data.text}</li>`;
-      });
-    });
-  });
-</script>
+</div>
 
 </body>
 </html>
