@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>الخط الزمني</title>
+</head>
+
+<body>
+
+<h2>الخط الزمني لجميع المشاريع</h2>
+
+<div id="timelineContainer"></div>
+
+<script src="firebase.js"></script>
+
+<script>
+  var container = document.getElementById("timelineContainer");
+
+  firebase.database().ref("timeline").on("value", function(snapshot){
+    container.innerHTML = "";
+
+    snapshot.forEach(project => {
+      var projectId = project.key;
+
+      container.innerHTML += `<h3>مشروع: ${projectId}</h3><ul id="list-${projectId}"></ul>`;
+
+      var list = document.getElementById("list-" + projectId);
+
+      project.forEach(update => {
+        var data = update.val();
+        list.innerHTML += `<li>${data.date} — ${data.text}</li>`;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

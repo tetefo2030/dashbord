@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تفاصيل المشروع</title>
+</head>
+
+<body>
+
+<h2>تفاصيل المشروع</h2>
+
+<div id="projectInfo"></div>
+
+<h3>إضافة تحديث للتايم لاين</h3>
+
+<form id="timelineForm">
+  <textarea name="update" placeholder="اكتب التحديث هنا" required></textarea><br><br>
+  <button type="submit">إضافة تحديث</button>
+</form>
+
+<h3>الخط الزمني</h3>
+<ul id="timelineList"></ul>
+
+<script src="firebase.js"></script>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const projectId = urlParams.get("id");
+
+  firebase.database().ref("projects/" + projectId).once("value").then(snapshot => {
+    var data = snapshot.val();
+    document.getElementById("projectInfo").innerHTML = `
+      <p><strong>اسم المشروع:</strong> ${data.name}</p>
+      <p><strong>القسم:</strong> ${data.dept}</p>
+      <p><strong>الحالة:</strong> ${data.status}</p>
+      <p><strong>الوصف:</strong> ${data.desc}</p>
+    `;
+  });
+
+  document.getElementById("timelineForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    var update = this.update.value;
+
+    firebase.database().ref("timeline/" + projectId).push({
+      text: update,
+      date: new Date().toLocaleString()
+    });
+
+    this.reset();
+  });
+
+  firebase.database().ref("timeline/" + projectId).on("value", function(snapshot){
+    var list = document.getElementById("timelineList");
+    list.innerHTML = "";
+
+    snapshot.forEach(child => {
+      var data = child.val();
+      list.innerHTML += `<li>${data.date} — ${data.text}</li>`;
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+</head>
+
+<body>
+<h2>لوحة المشاريع</h2>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>اسم المشروع</th>
+      <th>القسم</th>
+      <th>الحالة</th>
+      <th>التفاصيل</th>
+    </tr>
+  </thead>
+  <tbody id="projectsTable"></tbody>
+</table>
+
+<script src="firebase.js"></script>
+
+<script>
+  var table = document.getElementById("projectsTable");
+
+  firebase.database().ref("projects").on("value", function(snapshot){
+    table.innerHTML = "";
+    snapshot.forEach(function(child){
+      var data = child.val();
+      var id = child.key;
+
+      var row = `
+        <tr>
+          <td>${data.name}</td>
+          <td>${data.dept}</td>
+          <td>${data.status}</td>
+          <td><a href="project-details.html?id=${id}">عرض التفاصيل</a></td>
+        </tr>
+      `;
+      table.innerHTML += row;
+    });
+  });
+</script>
+
+</body>
+</html>
