@@ -3,62 +3,256 @@
 <head>
 <meta charset="UTF-8">
 <title>تفاصيل المشروع</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    body {
+        font-family: Tahoma, sans-serif;
+        background: #f2f4f7;
+        margin: 0;
+        direction: rtl;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #0a4a8a;
+        margin-bottom: 25px;
+    }
+
+    .form-container {
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+        color: #333;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+    }
+
+    textarea {
+        height: 80px;
+        resize: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+
+    .add-btn { background: #0a4a8a; color: white; }
+    .edit-btn { background: #007bff; color: white; }
+    .delete-btn { background: #d9534f; color: white; }
+    .upload-btn { background: #5cb85c; color: white; }
+    .back-btn { background: #555; color: white; }
+    .save-btn { background: #8a2be2; color: white; }
+
+    .btn:hover { opacity: 0.9; }
+
+    .date-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .date-group select {
+        flex: 1;
+    }
+
+    .owner-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .owner-row input {
+        flex: 1;
+    }
+
+    .add-owner-btn {
+        background: #0a4a8a;
+        color: white;
+        padding: 10px;
+        border-radius: 6px;
+        margin-top: 10px;
+        cursor: pointer;
+        width: 100%;
+        border: none;
+        font-size: 16px;
+    }
+
+    .add-owner-btn:hover {
+        opacity: 0.9;
+    }
+</style>
 </head>
 
 <body>
 
 <h2>تفاصيل المشروع</h2>
 
-<div id="projectInfo"></div>
+<div class="form-container">
 
-<h3>إضافة تحديث للتايم لاين</h3>
+    <!-- اسم المشروع -->
+    <label>اسم المشروع</label>
+    <input type="text" id="projectName" placeholder="اكتبي اسم المشروع">
 
-<form id="timelineForm">
-  <textarea name="update" placeholder="اكتب التحديث هنا" required></textarea><br><br>
-  <button type="submit">إضافة تحديث</button>
-</form>
+    <!-- هدف المشروع -->
+    <label>هدف المشروع</label>
+    <textarea id="projectGoal" placeholder="اكتبي هدف المشروع"></textarea>
 
-<h3>الخط الزمني</h3>
-<ul id="timelineList"></ul>
+    <!-- أصحاب المشروع -->
+    <label>أصحاب المشروع</label>
 
-<script src="firebase.js"></script>
+    <div id="ownersContainer">
+        <div class="owner-row">
+            <input type="text" placeholder="اسم صاحب المشروع">
+            <input type="text" placeholder="دوره في المشروع">
+        </div>
+    </div>
+
+    <button class="add-owner-btn" onclick="addOwner()">إضافة صاحب مشروع آخر</button>
+
+    <!-- نطاق المشروع -->
+    <label>نطاق المشروع</label>
+    <textarea id="projectScope" placeholder="اكتبي نطاق المشروع"></textarea>
+
+    <!-- متابع المشروع -->
+    <label>متابع المشروع</label>
+    <input type="text" id="projectFollower" placeholder="اسم متابع المشروع">
+
+    <!-- مراحل المشروع -->
+    <label>مراحل المشروع</label>
+    <textarea id="projectStages" placeholder="اكتبي مراحل المشروع"></textarea>
+
+    <!-- تاريخ بداية المشروع -->
+    <label>تاريخ بداية المشروع</label>
+    <div class="date-group">
+        <select id="startYear"><option value="">السنة</option></select>
+        <select id="startMonth"><option value="">الشهر</option></select>
+        <select id="startDay"><option value="">اليوم</option></select>
+    </div>
+
+    <input type="text" id="startDateManual" placeholder="أدخلي التاريخ يدوي (أرقام فقط)" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+    <!-- تاريخ نهاية المشروع -->
+    <label>تاريخ نهاية المشروع</label>
+    <div class="date-group">
+        <select id="endYear"><option value="">السنة</option></select>
+        <select id="endMonth"><option value="">الشهر</option></select>
+        <select id="endDay"><option value="">اليوم</option></select>
+    </div>
+
+    <input type="text" id="endDateManual" placeholder="أدخلي التاريخ يدوي (أرقام فقط)" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+
+    <!-- الأزرار -->
+    <button class="btn save-btn">حفظ المشروع</button>
+    <button class="btn add-btn">إضافة مشروع</button>
+    <button class="btn edit-btn">تعديل المشروع</button>
+    <button class="btn delete-btn">حذف المشروع</button>
+    <button class="btn back-btn" onclick="window.location.href='index.html'">العودة للصفحة الرئيسية</button>
+
+</div>
 
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const projectId = urlParams.get("id");
+    // إضافة صاحب مشروع جديد
+    function addOwner() {
+        const container = document.getElementById("ownersContainer");
 
-  firebase.database().ref("projects/" + projectId).once("value").then(snapshot => {
-    var data = snapshot.val();
-    document.getElementById("projectInfo").innerHTML = `
-      <p><strong>اسم المشروع:</strong> ${data.name}</p>
-      <p><strong>القسم:</strong> ${data.dept}</p>
-      <p><strong>الحالة:</strong> ${data.status}</p>
-      <p><strong>الوصف:</strong> ${data.desc}</p>
-    `;
-  });
+        const row = document.createElement("div");
+        row.className = "owner-row";
 
-  document.getElementById("timelineForm").addEventListener("submit", function(e){
-    e.preventDefault();
+        row.innerHTML = `
+            <input type="text" placeholder="اسم صاحب المشروع">
+            <input type="text" placeholder="دوره في المشروع">
+        `;
 
-    var update = this.update.value;
+        container.appendChild(row);
+    }
 
-    firebase.database().ref("timeline/" + projectId).push({
-      text: update,
-      date: new Date().toLocaleString()
+    // تعبئة السنوات
+    function fillYears(select) {
+        for (let year = 2020; year <= 2035; year++) {
+            let option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            select.appendChild(option);
+        }
+    }
+
+    // تعبئة الشهور
+    function fillMonths(select) {
+        for (let month = 1; month <= 12; month++) {
+            let option = document.createElement("option");
+            option.value = month;
+            option.textContent = month;
+            select.appendChild(option);
+        }
+    }
+
+    // تعبئة الأيام حسب الشهر
+    function fillDays(select, month, year) {
+        select.innerHTML = '<option value="">اليوم</option>';
+
+        let daysInMonth = 31;
+
+        if (month == 2) {
+            daysInMonth = (year % 4 === 0) ? 29 : 28;
+        } else if ([4, 6, 9, 11].includes(month)) {
+            daysInMonth = 30;
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            let option = document.createElement("option");
+            option.value = day;
+            option.textContent = day;
+            select.appendChild(option);
+        }
+    }
+
+    fillYears(document.getElementById("startYear"));
+    fillMonths(document.getElementById("startMonth"));
+    fillDays(document.getElementById("startDay"), 1, 2020);
+
+    fillYears(document.getElementById("endYear"));
+    fillMonths(document.getElementById("endMonth"));
+    fillDays(document.getElementById("endDay"), 1, 2020);
+
+    document.getElementById("startMonth").addEventListener("change", function() {
+        fillDays(document.getElementById("startDay"), this.value, document.getElementById("startYear").value);
     });
 
-    this.reset();
-  });
-
-  firebase.database().ref("timeline/" + projectId).on("value", function(snapshot){
-    var list = document.getElementById("timelineList");
-    list.innerHTML = "";
-
-    snapshot.forEach(child => {
-      var data = child.val();
-      list.innerHTML += `<li>${data.date} — ${data.text}</li>`;
+    document.getElementById("startYear").addEventListener("change", function() {
+        fillDays(document.getElementById("startDay"), document.getElementById("startMonth").value, this.value);
     });
-  });
+
+    document.getElementById("endMonth").addEventListener("change", function() {
+        fillDays(document.getElementById("endDay"), this.value, document.getElementById("endYear").value);
+    });
+
+    document.getElementById("endYear").addEventListener("change", function() {
+        fillDays(document.getElementById("endDay"), document.getElementById("endMonth").value, this.value);
+    });
 </script>
 
 </body>
