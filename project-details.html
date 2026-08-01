@@ -5,83 +5,63 @@
 <title>تفاصيل المشروع</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
     body {
-        font-family: Tahoma, sans-serif;
-        background: #f2f4f7;
         margin: 0;
+        font-family: 'Tahoma', sans-serif;
         direction: rtl;
+        background: #f0f6fa;
         padding: 20px;
     }
 
     h2 {
         text-align: center;
+        font-size: 26px;
         color: #0a4a8a;
+        margin-bottom: 30px;
+    }
+
+    .section {
+        background: white;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         margin-bottom: 25px;
     }
 
-    .form-container {
-        background: #fff;
-        padding: 25px;
-        border-radius: 10px;
-        max-width: 600px;
-        margin: auto;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .section-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #0a4a8a;
+        margin-bottom: 15px;
     }
 
     label {
         font-weight: bold;
-        display: block;
         margin-top: 15px;
+        display: block;
         color: #333;
     }
 
     input, textarea, select {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         margin-top: 8px;
+        border-radius: 10px;
         border: 1px solid #ccc;
-        border-radius: 6px;
         font-size: 15px;
     }
 
     textarea {
-        height: 80px;
+        height: 90px;
         resize: none;
-    }
-
-    .btn {
-        width: 100%;
-        padding: 12px;
-        border-radius: 6px;
-        font-size: 17px;
-        border: none;
-        cursor: pointer;
-        margin-top: 15px;
-    }
-
-    .add-btn { background: #0a4a8a; color: white; }
-    .edit-btn { background: #007bff; color: white; }
-    .delete-btn { background: #d9534f; color: white; }
-    .upload-btn { background: #5cb85c; color: white; }
-    .back-btn { background: #555; color: white; }
-    .save-btn { background: #8a2be2; color: white; }
-
-    .btn:hover { opacity: 0.9; }
-
-    .date-group {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .date-group select {
-        flex: 1;
     }
 
     .owner-row {
         display: flex;
-        gap: 10px;
+        gap: 15px;
         margin-top: 10px;
     }
 
@@ -92,17 +72,40 @@
     .add-owner-btn {
         background: #0a4a8a;
         color: white;
-        padding: 10px;
-        border-radius: 6px;
-        margin-top: 10px;
-        cursor: pointer;
-        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
         border: none;
+        margin-top: 15px;
+        cursor: pointer;
         font-size: 16px;
+        width: 100%;
     }
 
-    .add-owner-btn:hover {
-        opacity: 0.9;
+    .btn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: none;
+        font-size: 18px;
+        margin-top: 15px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .save-btn { background: #0a4a8a; color: white; }
+    .upload-btn { background: #5cb85c; color: white; }
+    .edit-btn { background: #007bff; color: white; }
+    .delete-btn { background: #d9534f; color: white; }
+    .back-btn { background: #555; color: white; }
+
+    .date-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .date-group select {
+        flex: 1;
     }
 </style>
 </head>
@@ -111,18 +114,18 @@
 
 <h2>تفاصيل المشروع</h2>
 
-<div class="form-container">
+<div class="section">
+    <div class="section-title">معلومات المشروع</div>
 
-    <!-- اسم المشروع -->
     <label>اسم المشروع</label>
-    <input type="text" id="projectName" placeholder="اكتبي اسم المشروع">
+    <input type="text" placeholder="اكتبي اسم المشروع">
 
-    <!-- هدف المشروع -->
     <label>هدف المشروع</label>
-    <textarea id="projectGoal" placeholder="اكتبي هدف المشروع"></textarea>
+    <textarea placeholder="اكتبي هدف المشروع"></textarea>
+</div>
 
-    <!-- أصحاب المشروع -->
-    <label>أصحاب المشروع</label>
+<div class="section">
+    <div class="section-title">أصحاب المشروع</div>
 
     <div id="ownersContainer">
         <div class="owner-row">
@@ -132,20 +135,21 @@
     </div>
 
     <button class="add-owner-btn" onclick="addOwner()">إضافة صاحب مشروع آخر</button>
+</div>
 
-    <!-- نطاق المشروع -->
+<div class="section">
+    <div class="section-title">نطاق ومتابعة المشروع</div>
+
     <label>نطاق المشروع</label>
-    <textarea id="projectScope" placeholder="اكتبي نطاق المشروع"></textarea>
+    <textarea placeholder="اكتبي نطاق المشروع"></textarea>
 
-    <!-- متابع المشروع -->
     <label>متابع المشروع</label>
-    <input type="text" id="projectFollower" placeholder="اسم متابع المشروع">
+    <input type="text" placeholder="اسم متابع المشروع">
+</div>
 
-    <!-- مراحل المشروع -->
-    <label>مراحل المشروع</label>
-    <textarea id="projectStages" placeholder="اكتبي مراحل المشروع"></textarea>
+<div class="section">
+    <div class="section-title">التواريخ</div>
 
-    <!-- تاريخ بداية المشروع -->
     <label>تاريخ بداية المشروع</label>
     <div class="date-group">
         <select id="startYear"><option value="">السنة</option></select>
@@ -153,44 +157,35 @@
         <select id="startDay"><option value="">اليوم</option></select>
     </div>
 
-    <input type="text" id="startDateManual" placeholder="أدخلي التاريخ يدوي (أرقام فقط)" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-
-    <!-- تاريخ نهاية المشروع -->
     <label>تاريخ نهاية المشروع</label>
     <div class="date-group">
         <select id="endYear"><option value="">السنة</option></select>
         <select id="endMonth"><option value="">الشهر</option></select>
         <select id="endDay"><option value="">اليوم</option></select>
     </div>
+</div>
 
-    <input type="text" id="endDateManual" placeholder="أدخلي التاريخ يدوي (أرقام فقط)" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+<div class="section">
+    <div class="section-title">إجراءات المشروع</div>
 
-    <!-- الأزرار -->
     <button class="btn save-btn">حفظ المشروع</button>
-    <button class="btn add-btn">إضافة مشروع</button>
     <button class="btn edit-btn">تعديل المشروع</button>
     <button class="btn delete-btn">حذف المشروع</button>
-    <button class="btn back-btn" onclick="window.location.href='index.html'">العودة للصفحة الرئيسية</button>
-
+    <button class="btn back-btn" onclick="location.href='index.html'">العودة للصفحة الرئيسية</button>
 </div>
 
 <script>
-    // إضافة صاحب مشروع جديد
     function addOwner() {
         const container = document.getElementById("ownersContainer");
-
         const row = document.createElement("div");
         row.className = "owner-row";
-
         row.innerHTML = `
             <input type="text" placeholder="اسم صاحب المشروع">
             <input type="text" placeholder="دوره في المشروع">
         `;
-
         container.appendChild(row);
     }
 
-    // تعبئة السنوات
     function fillYears(select) {
         for (let year = 2020; year <= 2035; year++) {
             let option = document.createElement("option");
@@ -200,7 +195,6 @@
         }
     }
 
-    // تعبئة الشهور
     function fillMonths(select) {
         for (let month = 1; month <= 12; month++) {
             let option = document.createElement("option");
@@ -210,10 +204,8 @@
         }
     }
 
-    // تعبئة الأيام حسب الشهر
     function fillDays(select, month, year) {
         select.innerHTML = '<option value="">اليوم</option>';
-
         let daysInMonth = 31;
 
         if (month == 2) {
