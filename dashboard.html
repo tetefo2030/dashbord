@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>لوحة التحكم</title>
+<title>لوحة المدير التنفيذية</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -12,63 +12,128 @@
         margin: 0;
         font-family: 'Tahoma', sans-serif;
         direction: rtl;
-        background: linear-gradient(135deg, #0a4a8a 0%, #0f7bbd 100%);
-        min-height: 100vh;
-        padding: 20px;
-        color: white;
+        background: #F5F7FA;
     }
 
+    /* رأس الصفحة */
     .header {
+        background: linear-gradient(135deg, #0A2A4A, #0A4A8A);
+        padding: 35px;
+        color: white;
         text-align: center;
-        font-size: 28px;
+        font-size: 32px;
         font-weight: bold;
-        margin-top: 20px;
-        margin-bottom: 40px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        letter-spacing: 1px;
     }
 
-    .dashboard {
-        max-width: 900px;
-        margin: auto;
+    /* قسم الإحصائيات */
+    .stats {
+        max-width: 1200px;
+        margin: 40px auto;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        border-top: 6px solid #3B82F6;
+        transition: 0.3s;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .stat-title {
+        font-size: 20px;
+        color: #374151;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .stat-number {
+        font-size: 40px;
+        color: #0A4A8A;
+        font-weight: bold;
+    }
+
+    /* بطاقات التنقل */
+    .dashboard {
+        max-width: 1200px;
+        margin: 50px auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 35px;
     }
 
     .card {
         background: white;
-        color: #0a4a8a;
-        padding: 25px;
-        border-radius: 18px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        padding: 35px;
+        border-radius: 20px;
+        border: 2px solid #E5E7EB;
         text-align: center;
         cursor: pointer;
         transition: 0.3s;
-        position: relative;
-        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
 
     .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        transform: translateY(-12px);
+        border-color: #0A4A8A;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
 
     .card i {
-        font-size: 45px;
-        margin-bottom: 15px;
-        color: #0a4a8a;
+        font-size: 55px;
+        margin-bottom: 20px;
+        color: #0A4A8A;
     }
 
     .card-title {
-        font-size: 20px;
+        font-size: 22px;
         font-weight: bold;
+        color: #374151;
     }
+
 </style>
 </head>
 
 <body>
 
-<div class="header">لوحة التحكم</div>
+<div class="header">لوحة المدير التنفيذية</div>
 
+<!-- إحصائيات المدير -->
+<div class="stats">
+
+    <div class="stat-card">
+        <div class="stat-title">عدد المشاريع الحالية</div>
+        <div class="stat-number">18</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">المشاريع المكتملة</div>
+        <div class="stat-number" style="color:#10B981;">12</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">المشاريع المتأخرة</div>
+        <div class="stat-number" style="color:#EF4444;">4</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">نسبة الإنجاز</div>
+        <div class="stat-number">74%</div>
+    </div>
+
+</div>
+
+<!-- بطاقات التنقل -->
 <div class="dashboard">
 
     <div class="card" onclick="location.href='project-details.html'">
