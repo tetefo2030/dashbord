@@ -2,47 +2,91 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard</title>
+<title>لوحة التحكم</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Tahoma', sans-serif;
+        direction: rtl;
+        background: linear-gradient(135deg, #0a4a8a 0%, #0f7bbd 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: white;
+    }
+
+    .header {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    .dashboard {
+        max-width: 900px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background: white;
+        color: #0a4a8a;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+    .card i {
+        font-size: 45px;
+        margin-bottom: 15px;
+        color: #0a4a8a;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
 </head>
 
 <body>
-<h2>لوحة المشاريع</h2>
 
-<table border="1" width="100%">
-  <thead>
-    <tr>
-      <th>اسم المشروع</th>
-      <th>القسم</th>
-      <th>الحالة</th>
-      <th>التفاصيل</th>
-    </tr>
-  </thead>
-  <tbody id="projectsTable"></tbody>
-</table>
+<div class="header">لوحة التحكم</div>
 
-<script src="firebase.js"></script>
+<div class="dashboard">
 
-<script>
-  var table = document.getElementById("projectsTable");
+    <div class="card" onclick="location.href='project-details.html'">
+        <i class="fa-solid fa-folder-plus"></i>
+        <div class="card-title">إضافة مشروع جديد</div>
+    </div>
 
-  firebase.database().ref("projects").on("value", function(snapshot){
-    table.innerHTML = "";
-    snapshot.forEach(function(child){
-      var data = child.val();
-      var id = child.key;
+    <div class="card" onclick="location.href='projects-list.html'">
+        <i class="fa-solid fa-list"></i>
+        <div class="card-title">عرض المشاريع</div>
+    </div>
 
-      var row = `
-        <tr>
-          <td>${data.name}</td>
-          <td>${data.dept}</td>
-          <td>${data.status}</td>
-          <td><a href="project-details.html?id=${id}">عرض التفاصيل</a></td>
-        </tr>
-      `;
-      table.innerHTML += row;
-    });
-  });
-</script>
+    <div class="card" onclick="location.href='timeline.html'">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <div class="card-title">الخط الزمني</div>
+    </div>
+
+</div>
 
 </body>
 </html>
